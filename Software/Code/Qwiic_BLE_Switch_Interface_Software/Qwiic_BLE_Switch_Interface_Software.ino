@@ -105,10 +105,11 @@ BleKeyboard bleKeyboard;
 
 void setup() {
 
-  Serial.begin(115200);                                                        //Start Serial
-  M5.begin();
-  bleKeyboard.setName("Qwiic BLE Switch");
-  bleKeyboard.begin();                                                            //Starts keyboard emulation
+  Serial.begin(115200);                                                        //Starts Serial
+  M5.begin();                                                                  //Starts M5Stack
+  bleKeyboard.setName("Qwiic BLE Switch");                                     //Set name of BLE keyboard device 
+  bleKeyboard.begin();                                                         //Starts BLE keyboard emulation
+  EEPROM.begin(EEPROM_SIZE);                                                   //Starts EEPROM emulation
   delay(1000);
   switchSetup();                                                               //Setup switch
   delay(5);
@@ -308,26 +309,24 @@ void modeLoop() {
 //***SETUP SWITCH MODE FUNCTION***//
 void switchSetup() {
   //Check if it's first time running the code
-  EEPROM.get(EEPROM_isConfigured, g_switchIsConfigured);
-  delay(5);
-  
+  g_switchIsConfigured = EEPROM.read(EEPROM_isConfigured);
+  delay(5); 
   if (g_switchIsConfigured==0) {
     //Define default settings if it's first time running the code
     g_switchIsConfigured=1;
     g_switchMode=SWITCH_DEFAULT_MODE;
     g_switchReactionLevel=SWITCH_DEFAULT_REACTION_LEVEL;
 
-    //Write default settings to flash storage 
+    //Write default settings to EEPROM 
     EEPROM.write(EEPROM_isConfigured,g_switchIsConfigured);
     EEPROM.write(EEPROM_modeNumber,g_switchMode);
     EEPROM.write(EEPROM_reactionLevel,g_switchReactionLevel);
     EEPROM.commit();
     delay(5);
-      
   } else {
     //Load settings from flash storage if it's not the first time running the code
-    EEPROM.get(EEPROM_modeNumber, g_switchMode);
-    EEPROM.get(EEPROM_reactionLevel, g_switchReactionLevel);
+    g_switchMode = EEPROM.read(EEPROM_modeNumber);
+    g_switchReactionLevel = EEPROM.read(EEPROM_reactionLevel);
     delay(5);
   }  
 
@@ -488,7 +487,7 @@ void morseAction(int switch1,int switch2) {
 
 //***CHANGE SWITCH MODE FUNCTION***//
 void changeSwitchMode(){
-    //Update switch mode varia
+    //Update switch mode
     g_switchMode++;
     if (g_switchMode == (sizeof (modeProperty) / sizeof (modeProperty[0]))+1) {
       g_switchMode=1;
