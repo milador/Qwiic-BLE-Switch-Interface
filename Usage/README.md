@@ -5,9 +5,6 @@
 ### Usage Components
 
   1. Adaptive Switch x 2 ( Example: [AJelly Bean](https://www.ablenetinc.com/jelly-bean) )
-  2. ..
-  3. ..
-
 
 ## Usage Process
 
@@ -15,29 +12,33 @@
 
 1. Connect two Adaptive Switches to [Qwiic-Adaptive-Switch-Input](https://github.com/milador/Qwiic-Adaptive-Switch) module through 3.5mm switch connectors.
    
-   1.1. Switch 1 : LED blinks in Blue
+   1.1. Switch A
    
-   1.2. Switch 2 : LED blink in Red 
+   1.2. Switch B
+   
+2. Connect and pair to the host device (Example: Windows 10 PC)
+   
+   On Windows 10:
+   
+   2.1. Select **Start > Settings > Devices > Bluetooth & other devices**
+   2.2. Select **Add Bluetooth or other device > Bluetooth**. 
+   2.3. Choose **Qwiic BLE Switch** and follow additional instructions if they appear.
+   2.4. Select **Done** once the device is paired.
 
-2. Switch between modes by press and holding Switch Number Two for 4 seconds
+3. Switch between modes by press and holding Switch B for 4 seconds or by pressing M5 button.
 
-   2.1. Keyboard Switch Mode: LED stays Teal, Switch 1 : Key a, Switch 2 : Key b  
+   3.1. Switch Mode: Windows and Android, Switch A : a Key, Switch B : b Key 
  
-   2.2. Morse Keyboard Mode: LED stays Purple, Switch 1 : Dot, Switch 2 : Dash 
+   3.2. Switch Mac Mode: Mac, Switch A : F1 Key, Switch B : F2 Key  
   
-   2.3. Morse Mouse Mode: LED stays Pink, Switch 1 : Dot, Switch 2 : Dash   
+   3.3. Morse Keyboard Mode: Morse code, Switch A : Dot, Switch B : Dash 
 
-   2.4. Settings Mode: LED stays Orange, Switch 1 : Increase Reaction level, Switch 2 : Decrease Reaction level   
+   3.4. Settings Mode: Change reaction time, Switch A : Decrease Reaction level, Switch B : Increase Reaction level   
 
-3. ..
-
-4. ..
   
 ### How to Customize?
 
-  1. Enter Settings Mode by press holding switch Number Two 3 times for 4 seconds. The LED turns and stays Orange.
-  2. Press Switch One to Increase Reaction level ( Maximum is 10 ) : LED blinks in Blue 
-  3. Press Switch Two to Decrease Reaction level ( Minimum is 1 ) : LED blink in Red 
-  4. ..
-  5. ..
+  1. Enter Settings Mode by press holding switch B 3 times for 4 seconds or by pressing M5 button. The screen will display a text in yellow to indicate it's in Settings Mode.
+  2. Press Switch A to Decrease Reaction level ( Maximum is 1 ) : 500ms
+  3. Press Switch B to Increase Reaction level ( Minimum is 10 ) : 50ms 
 

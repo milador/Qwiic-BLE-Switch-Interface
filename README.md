@@ -1,9 +1,21 @@
 # This is a project based on Qwiic Adaptive Switch modules
 This repository offers the required information for creating an Open Source Assistive Technology using [Qwiic Adaptive Switch modules](https://github.com/milador/Qwiic-Adaptive-Switch).
 
-## [Project Title]
+## Qwiic-BLE-Switch-Interface
 
-This is the description of the Open Source Assistive Technology created based on Qwiic Adaptive Switch modules and other components.
+A Bluetooth enabled Adaptive Switch Interface based on ESP32 M5StickC and Qwiic Adaptive Switch Input module which offers up to two 3.5mm switch inputs. 
+
+The Adaptive Switch Interface includes 4 operating modes: 
+    1. Switch Mode
+	2. Switch Mac Mode  
+	3. Morse Keyboard Mode 
+	4. Settings Mode
+	
+The mode can be changed by pressing and holding Switch B for 4 seconds or pressing M5 button.
+
+<p align="center">
+<img align="center" src="./Resources/Images/Qwiic_BLE_Switch_Interface.png" width="50%" height="50%" alt="Setup Diagram"/>
+</p>
 
 ## Requirements and setup instructions 
 The setup process is divided to three main catagories:
