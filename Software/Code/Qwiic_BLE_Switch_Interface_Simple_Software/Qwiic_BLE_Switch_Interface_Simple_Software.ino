@@ -105,7 +105,7 @@ void switchSetup() {
     Serial.print("Switch Reaction Level: ");
     Serial.println(g_switchReactionLevel);
     Serial.print("Reaction Time(ms): ");
-    Serial.print(g_switchReactionTime);
+    Serial.println(g_switchReactionTime);
 }
 
 //***BUS EXPANDER SETUP FUNCTION***//
