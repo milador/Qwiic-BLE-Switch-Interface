@@ -330,6 +330,10 @@ void switchSetup() {
     delay(5);
   }  
 
+    //Calculate switch delay based on g_switchReactionLevel
+    g_switchReactionTime = ((11-g_switchReactionLevel)*SWITCH_REACTION_TIME);
+    g_morseReactionTime = (pow(1.5,(11-g_switchReactionLevel))*MORSE_REACTION_TIME);
+    
     //Serial print settings 
     Serial.print("Switch Mode: ");
     Serial.println(g_switchMode);
@@ -340,9 +344,7 @@ void switchSetup() {
     Serial.print(g_switchReactionTime);
     Serial.print("-");
     Serial.println(g_morseReactionTime);   
-    //Calculate switch delay based on g_switchReactionLevel
-    g_switchReactionTime = ((11-g_switchReactionLevel)*SWITCH_REACTION_TIME);
-    g_morseReactionTime = (pow(1.5,(11-g_switchReactionLevel))*MORSE_REACTION_TIME);
+
 }
 
 //***BUS EXPANDER SETUP FUNCTION***//
