@@ -9,10 +9,10 @@
 #include <EEPROM.h>
 #include <Wire.h>
 #include "SparkFun_TCA9534.h"
-#include <BleKeyboard.h>
+#include <BleKeyboard.h>                                                                                                                                                                              
 #include "EasyMorse.h"
 #include <StopWatch.h>
-#include <M5StickC.h>
+#include <M5StickCPlus.h>
 
 //***CAN BE CHANGED***/
 #define MORSE_TIMEOUT                 1000                //Maximum timeout (1000ms =1s)
@@ -113,7 +113,7 @@ void setup() {
   delay(1000);
   switchSetup();                                                               //Setup switch
   delay(5);
-  showIntro();                                                                 //Show intro page
+ showIntro();                                                                 //Show intro page
   delay(5);   
   morseSetup();                                                                //Setup morse
   delay(5);   
@@ -160,10 +160,10 @@ void showIntro() {
   M5.Lcd.setTextColor(WHITE);
 
   M5.Lcd.setTextSize(2);                        
-  M5.Lcd.drawCentreString("Milador.ca",80,20,2);
+  M5.Lcd.drawCentreString("Milador.ca",130,40,2);
 
   M5.Lcd.setTextSize(1);
-  M5.Lcd.drawCentreString("Qwiic BLE Switch",80,50,1);
+  M5.Lcd.drawCentreString("Qwiic BLE Switch",130,80,1);
 
   delay(3000);
 }
@@ -175,10 +175,10 @@ void showMode(){
 
   M5.Lcd.setRotation(3);
   M5.Lcd.fillScreen(BLACK);                      //Black background
-  M5.Lcd.drawRect(1, 1, 159, 20, modeProperty[g_switchMode-1].modeColor);
+  M5.Lcd.drawRect(2, 2, 238, 30, modeProperty[g_switchMode-1].modeColor);
   M5.Lcd.setTextColor(modeProperty[g_switchMode-1].modeColor);
   M5.Lcd.setTextSize(1);
-  M5.Lcd.drawCentreString(modeProperty[g_switchMode-1].modeName,80,2,2);
+  M5.Lcd.drawCentreString(modeProperty[g_switchMode-1].modeName,120,5,4);
   
   showModeInfo();
   //I2C connection text
@@ -192,17 +192,17 @@ void showConnection(int connectionState) {
   M5.Lcd.setTextSize(1);                    // Select the font
   //Display connection status based on code
   if(connectionState==0){
-    M5.Lcd.drawRect(1, 65, 159, 15, RED);
+    M5.Lcd.drawRect(2, 100,238, 30, RED);
     M5.Lcd.setTextColor(RED); 
     g_switchConnectionMessage = "Error: I2C not detected";
     Serial.println(g_switchConnectionMessage);
-    M5.Lcd.drawCentreString(g_switchConnectionMessage,80,69,1);// Display connection state
+    M5.Lcd.drawCentreString(g_switchConnectionMessage,120,105,2);// Display connection state
   } else if(connectionState==1){
-    M5.Lcd.drawRect(1, 65, 159, 15, BLUE);
+    M5.Lcd.drawRect(2, 100,238, 30, BLUE);
     M5.Lcd.setTextColor(BLUE); 
     g_switchConnectionMessage = "Success: I2C is detected";
     Serial.println(g_switchConnectionMessage);
-    M5.Lcd.drawCentreString(g_switchConnectionMessage,80,69,1);// Display connection state
+    M5.Lcd.drawCentreString(g_switchConnectionMessage,120,105,2);// Display connection state
   }
     
 }
@@ -213,7 +213,7 @@ void showModeInfo() {
   String switchAText = "Swich A: ";
   String switchBText = "Swich B: ";
   M5.Lcd.setRotation(3);
-  M5.Lcd.drawRect(1, 23, 159, 41, WHITE);
+  M5.Lcd.drawRect(2, 35, 238, 62, WHITE);
   M5.Lcd.setTextColor(WHITE); 
   M5.Lcd.setTextSize(1);
   if(g_switchMode==1) {
@@ -232,8 +232,8 @@ void showModeInfo() {
     switchAText.concat(switchProperty[0].switchSettingsText);
     switchBText.concat(switchProperty[1].switchSettingsText);
   }
-  M5.Lcd.drawCentreString(switchAText,80,28,2);
-  M5.Lcd.drawCentreString(switchBText,80,43,2);
+  M5.Lcd.drawCentreString(switchAText,120,44,2);
+  M5.Lcd.drawCentreString(switchBText,120,67,2);
 }
 
 /***INTRO PAGE LOOP***/

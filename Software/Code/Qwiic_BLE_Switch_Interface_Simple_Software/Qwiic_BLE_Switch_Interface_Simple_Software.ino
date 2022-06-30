@@ -10,7 +10,7 @@
 #include <Wire.h>
 #include "SparkFun_TCA9534.h"
 #include <BleKeyboard.h>
-#include <M5StickC.h>
+#include <M5StickCPlus.h>
 
 //***CAN BE CHANGED***/
 #define SWITCH_MAC_MODE                true                // Windows, Android = false, Mac = true

@@ -5,7 +5,7 @@
 ### Components to be purchased
 
   1. [Qwiic-Adaptive-Switch-Input](https://github.com/milador/Qwiic-Adaptive-Switch) x 1
-  2. [M5StickC ESP32-PICO Mini IoT Development Kit](https://shop.m5stack.com/products/stick-c?variant=17203451265114) x 1
+  2. [M5StickC PLUS ESP32-PICO Mini IoT Development Kit](https://shop.m5stack.com/products/m5stickc-plus-esp32-pico-mini-iot-development-kit) x 1
   3. [Grove to STEMMA QT Cable](https://www.adafruit.com/product/4528) x 1  
   4. Micro USB C Male to USB A Male cable x 1
   
