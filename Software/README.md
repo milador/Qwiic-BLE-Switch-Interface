@@ -9,7 +9,8 @@
   3. [M5StickC](https://github.com/m5stack/M5StickC)
   4. [SparkFun_Qwiic_GPIO_Library](https://github.com/sparkfun/SparkFun_Qwiic_GPIO_Library)
   5. [ESP32-BLE-Keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard)
-
+  6. [StopWatch Library](https://github.com/RobTillaart/Stopwatch_RT)
+  7. [EasyMorse Library](https://github.com/milador/EasyMorse)
 
 ## Software Setup Process
 
@@ -42,24 +43,32 @@
   13. Extract **ESP32-BLE-Keyboard-master.zip** file
   14. Rename **ESP32-BLE-Keyboard-master** folder to **ESP32-BLE-Keyboard** folder under **ESP32-BLE-Keyboard-master** subdirectory. 
   15. Copy or move **ESP32-BLE-Keyboard** folder to Arduino installation library subdirectory. As an example: This is found under **C:\Program Files (x86)\Arduino\libraries in windows 10**.
-  16. Visit the **Qwiic_BLE_Switch_Interface_Software.ino** raw source code file under Code directory.
-  17. Right click on the source code or any place on this page and select **Save Page As…**
-  18. Select the directory you would like to save the software in your computer. 
-  19. Change File name from **Qwiic_BLE_Switch_Interface_Software** to **Qwiic_BLE_Switch_Interface_Software.ino**
-  20. Change **Save as type** to **All Files**.
-  21. Click on **Save** button.
-  22. Visit the **Free_Fonts.h** raw source code file under Code directory.
-  23. Right click on the source code or any place on this page and select **Save Page As…**
-  24. Select the directoryyou selected in step 3.
-  25. Click on **Save** button.
-  26. Open the directory you selected in step 3.
-  27. Double left click or open **Qwiic_BLE_Switch_Interface_Software** file
-  28. **Arduino IDE** will ask your permission to create a new sketch folder named **Qwiic_BLE_Switch_Interface_Software** and move **Qwiic_BLE_Switch_Interface_Software.ino** under this folder.
-  29. Click on the **Ok** button. 
-  30. **Arduino IDE** should now open the **Qwiic_BLE_Switch_Interface_Software.ino** file automatically.
-  31. Select the Board under **Tools > Board > M5Stick Arduino Boards** as **M5Stick-C**
-  32. Select the correct port number under **Tools > Port** which should show COM XX (M5StickC) 
-  33. Press the **Verify** button to make sure there is no problem with the software and libraries. 
-  34. Press **Upload** button 
-
-
+  16. Visit the **StopWatch** library github repository page.
+  17. Click on **Code > Download Zip** to download **StopWatch** library.
+  18. Extract **Stopwatch_RT-master.zip** file
+  19. Rename **Stopwatch_RT-master** folder to **Stopwatch** folder under **Stopwatch_RT-master** subdirectory. 
+  20. Copy or move **Stopwatch** folder to Arduino installation library subdirectory. As an example: This is found under **C:\Program Files (x86)\Arduino\libraries in windows 10**.
+  21. Visit the **EasyMorse** library github repository page.
+  22. Click on **Code > Download Zip** to download **EasyMorse** library.
+  23. Extract **EasyMorse-master.zip** file
+  24. Rename **EasyMorse-master** folder to **EasyMorse** folder under **EasyMorse-master** subdirectory. 
+  25. Copy or move **EasyMorse** folder to Arduino installation library subdirectory. As an example: This is found under **C:\Program Files (x86)\Arduino\libraries in windows 10**.  
+  26. Visit the **Qwiic_BLE_Switch_Interface_Software.ino** raw source code file under Code directory.
+  27. Right click on the source code or any place on this page and select **Save Page As…**
+  28. Select the directory you would like to save the software in your computer. 
+  29. Change File name from **Qwiic_BLE_Switch_Interface_Software** to **Qwiic_BLE_Switch_Interface_Software.ino**
+  30. Change **Save as type** to **All Files**.
+  31. Click on **Save** button.
+  32. Visit the **Free_Fonts.h** raw source code file under Code directory.
+  33. Right click on the source code or any place on this page and select **Save Page As…**
+  34. Select the directory you selected in step 28.
+  35. Click on **Save** button.
+  36. Open the directory you selected in step 28.
+  37. Double left click or open **Qwiic_BLE_Switch_Interface_Software** file
+  38. **Arduino IDE** will ask your permission to create a new sketch folder named **Qwiic_BLE_Switch_Interface_Software** and move **Qwiic_BLE_Switch_Interface_Software.ino** under this folder.
+  39. Click on the **Ok** button. 
+  40. **Arduino IDE** should now open the **Qwiic_BLE_Switch_Interface_Software.ino** file automatically.
+  41. Select the Board under **Tools > Board > M5Stick Arduino Boards** as **M5Stick-C**
+  42. Select the correct port number under **Tools > Port** which should show COM XX (M5StickC) 
+  43. Press the **Verify** button to make sure there is no problem with the software and libraries. 
+  44. Press **Upload** button 
