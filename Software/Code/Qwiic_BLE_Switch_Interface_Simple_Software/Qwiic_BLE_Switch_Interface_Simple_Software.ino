@@ -51,7 +51,8 @@ const switchStruct switchProperty[] {
 };
 
 TCA9534 inputModule;            //Input
-BleKeyboard bleKeyboard;
+//BleKeyboard bleKeyboard;
+BleKeyboard bleKeyboard("Qwiic BLE Switch", "Me", 100);
 
 void setup() {
 

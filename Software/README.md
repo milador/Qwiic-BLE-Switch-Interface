@@ -8,10 +8,11 @@
   2. [Main Code](./Code/)
   3. [M5StickC Plus](https://github.com/m5stack/M5StickC-Plus)
   4. [SparkFun_Qwiic_GPIO_Library](https://github.com/sparkfun/SparkFun_Qwiic_GPIO_Library)
-  5. [ESP32-BLE-Keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard)
+  5. [ESP32-BLE-Keyboard](https://github.com/milador/ESP32-BLE-Keyboard)
   6. [StopWatch Library](https://github.com/RobTillaart/Stopwatch_RT)
   7. [EasyMorse Library](https://github.com/milador/EasyMorse)
 
+  Note: This project is using edited version of ESP32-BLE-Keyboard library by T-vK.
 
 ## Software Setup Process
 
