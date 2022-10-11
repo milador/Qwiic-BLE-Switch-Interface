@@ -40,7 +40,7 @@
   
 ### How to Customize?
 
-  1. Enter Settings Mode by press holding switch B 3 times for 4 seconds or by pressing M5 button. The screen will display a text in yellow to indicate it's in Settings Mode.
+  1. Enter Settings Mode by press holding switch A 3 times for 4 seconds or by pressing M5 button. The screen will display a text in yellow to indicate it's in Settings Mode.
   2. Press Switch A to Decrease Reaction level ( Maximum is 1 ) : 500ms
   3. Press Switch B to Increase Reaction level ( Minimum is 10 ) : 50ms 
 
