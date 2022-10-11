@@ -22,23 +22,27 @@
    
    2.1. Select **Start > Settings > Devices > Bluetooth & other devices**
    2.2. Select **Add Bluetooth or other device > Bluetooth**. 
-   2.3. Choose **Qwiic BLE Switch** and follow additional instructions if they appear.
+   2.3. Choose **BLE Switch** and follow additional instructions if they appear.
    2.4. Select **Done** once the device is paired.
 
-3. Switch between modes by press and holding Switch B for 4 seconds or by pressing M5 button.
+3. Switch between modes by press and holding Switch A for 4 seconds or by pressing M5 button.
 
    3.1. Switch Mode: Windows and Android, Switch A : a Key, Switch B : b Key 
  
    3.2. Switch Mac Mode: Mac, Switch A : F1 Key, Switch B : F2 Key  
   
    3.3. Morse Keyboard Mode: Morse code, Switch A : Dot, Switch B : Dash 
+   
+   3.4. Media Control Mode: Switch A : Previous Track, Switch B : Next Track 
 
-   3.4. Settings Mode: Change reaction time, Switch A : Decrease Reaction level, Switch B : Increase Reaction level   
+   3.5. Settings Mode: Change reaction time, Switch A : Decrease Reaction level, Switch B : Increase Reaction level   
 
   
 ### How to Customize?
 
-  1. Enter Settings Mode by press holding switch B 3 times for 4 seconds or by pressing M5 button. The screen will display a text in yellow to indicate it's in Settings Mode.
+  1. Enter Settings Mode by press holding switch A 3 times for 4 seconds or by pressing M5 button. The screen will display a text in yellow to indicate it's in Settings Mode.
   2. Press Switch A to Decrease Reaction level ( Maximum is 1 ) : 500ms
   3. Press Switch B to Increase Reaction level ( Minimum is 10 ) : 50ms 
+
+
 

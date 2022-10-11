@@ -47,7 +47,7 @@ int g_pageNumber;
 
 //Stopwatches array used to time switch presses
 StopWatch g_timeWatcher[3];
-StopWatch g_switchBTimeWatcher[1];
+StopWatch g_switchATimeWatcher[1];
 
 //Initialize time variables for morse code
 unsigned msMin = MS_MIN_DD;
@@ -78,6 +78,8 @@ typedef struct {
   uint8_t switchMacChar;
   String  switchMacText;
   String  switchMorseText;
+  const uint8_t* switchMediaChar;
+  String  switchMediaText;
   String switchSettingsText;
   uint8_t switchMorseTimeMulti;
 } switchStruct;
@@ -86,9 +88,10 @@ typedef struct {
 
 //Switch properties 
 const switchStruct switchProperty[] {
-    {1,'a',KEY_F1,"F1","DOT","- Reaction",1},                             //{1=dot,"DOT",'a',  KEY_F1,5=blue,1=1xMORSE_REACTION}
-    {2,'b',KEY_F2,"F2","DASH","+ Reaction",3}                              //{2=dash,"DASH",'b',KEY_F2,6=red,3=3xMORSE_REACTION}
+    {1,'a',KEY_F1,"F1","DOT",KEY_MEDIA_PREVIOUS_TRACK,"Previous","- Reaction",1},                        //{1=dot,"DOT",'a',  KEY_F1, KEY_MEDIA_PREVIOUS_TRACK, Previous, 5=blue,1=1xMORSE_REACTION}
+    {2,'b',KEY_F2,"F2","DASH",KEY_MEDIA_NEXT_TRACK,"Next","+ Reaction",3}                                //{2=dash,"DASH",'b', KEY_F2, KEY_MEDIA_NEXT_TRACK, Next, 6=red,3=3xMORSE_REACTION}
 };
+
 
 
 //Mode properties 
@@ -96,7 +99,8 @@ const modeStruct modeProperty[] {
     {1,"Switch",WHITE},
     {2,"Switch Mac",PINK},
     {3,"Morse Keyboard",RED},
-    {4,"Settings",YELLOW}
+    {4,"Media Control",GREEN},
+    {5,"Settings",YELLOW}
 };
 
 EasyMorse morse;
@@ -184,7 +188,7 @@ void showMode(){
   showModeInfo();
   //I2C connection text
   showConnection(g_moduleConnectionState);
-
+  if(g_switchMode==5) { showReactionLevel(); }
 }
 //*** SHOW CONNECTION STATE***//
 void showConnection(int connectionState) {
@@ -230,11 +234,24 @@ void showModeInfo() {
     switchBText.concat(switchProperty[1].switchMorseText);
   }
   else if(g_switchMode==4) {
+    switchAText.concat(switchProperty[0].switchMediaText);
+    switchBText.concat(switchProperty[1].switchMediaText);
+  }
+  else if(g_switchMode==5) {
     switchAText.concat(switchProperty[0].switchSettingsText);
     switchBText.concat(switchProperty[1].switchSettingsText);
   }
   M5.Lcd.drawCentreString(switchAText,80,28,2);
   M5.Lcd.drawCentreString(switchBText,80,43,2);
+}
+
+//*** SHOW REACTION LEVEL***//
+void showReactionLevel() {
+  M5.Lcd.setRotation(3);
+  M5.Lcd.drawRect(2, 24, 33, 40, WHITE);
+  M5.Lcd.setTextColor(modeProperty[g_switchMode-1].modeColor); 
+  M5.Lcd.setTextSize(2);
+  M5.Lcd.drawCentreString(String(g_switchReactionLevel),20,33,2);
 }
 
 /***INTRO PAGE LOOP***/
@@ -257,36 +274,36 @@ void modeLoop() {
   static int ctr;                          //Control variable to set previous status of switches 
   unsigned long timePressed;               //Time that switch one or two are pressed
   unsigned long timeNotPressed;            //Time that switch one or two are not pressed
-  static int previousSwitchBState;         //Previous status of switch B
+  static int previousSwitchAState;         //Previous status of switch A
   
   //Update status of switch inputs
   g_switchAState = inputModule.digitalRead(0);
   g_switchBState = inputModule.digitalRead(1);
 
   timePressed = timeNotPressed  = 0;       //reset time counters
-  if (!ctr) {                              //Set previous status of switch two 
-    previousSwitchBState = HIGH;  
+  if (!ctr) {                              //Set previous status of switch 1 
+    previousSwitchAState = HIGH;  
     ctr++;
   }
-  //Check if switch B is pressed to change switch mode
-  if (g_switchBState == LOW && previousSwitchBState == HIGH) {
-     previousSwitchBState = LOW; 
-     g_switchBTimeWatcher[0].stop();                                //Reset and start the timer         
-     g_switchBTimeWatcher[0].reset();                                                                        
-     g_switchBTimeWatcher[0].start(); 
+  //Check if switch A is pressed to change switch mode
+  if (g_switchAState == LOW && previousSwitchAState == HIGH) {
+     previousSwitchAState = LOW; 
+     g_switchATimeWatcher[0].stop();                                //Reset and start the timer         
+     g_switchATimeWatcher[0].reset();                                                                        
+     g_switchATimeWatcher[0].start(); 
   }
-  // Switch B was released
-  if (g_switchBState == HIGH && previousSwitchBState == LOW) {
-    previousSwitchBState = HIGH;
-    timePressed = g_switchBTimeWatcher[0].elapsed();                //Calculate the time that switch one was pressed 
-    g_switchBTimeWatcher[0].stop();                                 //Stop the single action (dot/dash) timer and reset
-    g_switchBTimeWatcher[0].reset();
+  // Switch A was released
+  if (g_switchAState == HIGH && previousSwitchAState == LOW) {
+    previousSwitchAState = HIGH;
+    timePressed = g_switchATimeWatcher[0].elapsed();                //Calculate the time that switch one was pressed 
+    g_switchATimeWatcher[0].stop();                                 //Stop the single action (dot/dash) timer and reset
+    g_switchATimeWatcher[0].reset();
     //Perform action if the switch has been hold active for specified time
     if (timePressed >= SWITCH_MODE_CHANGE_TIME){
       changeSwitchMode();
       showMode();                                                                
-    } else if(g_switchMode==4) {
-      settingsAction(g_switchAState,LOW); 
+    } else if(g_switchMode==5) {
+      settingsAction(LOW,g_switchBState); 
     }
   }
   //Perform actions based on the mode
@@ -301,7 +318,10 @@ void modeLoop() {
         morseAction(g_switchAState,g_switchBState);                                           //Keyboard Morse mode
         break;
       case 4:
-        settingsAction(g_switchAState,HIGH);                                                  //Settings mode
+        mediaAction(g_switchAState,g_switchBState);                                                  //Settings mode
+        break;
+      case 5:
+        settingsAction(HIGH,g_switchBState);                                                  //Settings mode
         break;
   };
   delay(g_switchReactionTime);
@@ -309,27 +329,28 @@ void modeLoop() {
 
 //***SETUP SWITCH MODE FUNCTION***//
 void switchSetup() {
-  //Check if it's first time running the code
-  g_switchIsConfigured = EEPROM.read(EEPROM_isConfigured);
-  delay(5); 
-  if (g_switchIsConfigured==0) {
-    //Define default settings if it's first time running the code
-    g_switchIsConfigured=1;
-    g_switchMode=SWITCH_DEFAULT_MODE;
-    g_switchReactionLevel=SWITCH_DEFAULT_REACTION_LEVEL;
-
-    //Write default settings to EEPROM 
-    EEPROM.write(EEPROM_isConfigured,g_switchIsConfigured);
-    EEPROM.write(EEPROM_modeNumber,g_switchMode);
-    EEPROM.write(EEPROM_reactionLevel,g_switchReactionLevel);
-    EEPROM.commit();
-    delay(5);
-  } else {
-    //Load settings from flash storage if it's not the first time running the code
-    g_switchMode = EEPROM.read(EEPROM_modeNumber);
-    g_switchReactionLevel = EEPROM.read(EEPROM_reactionLevel);
-    delay(5);
-  }  
+    //Check if it's first time running the code
+    g_switchIsConfigured = EEPROM.read(EEPROM_isConfigured);
+    delay(5); 
+    if (g_switchIsConfigured==1){
+      //Load settings from flash storage if it's not the first time running the code
+      g_switchMode = EEPROM.read(EEPROM_modeNumber);
+      g_switchReactionLevel = EEPROM.read(EEPROM_reactionLevel);
+      delay(5);
+    }  
+    else {
+      //Define default settings if it's first time running the code
+      g_switchIsConfigured=1;
+      g_switchMode=SWITCH_DEFAULT_MODE;
+      g_switchReactionLevel=SWITCH_DEFAULT_REACTION_LEVEL;
+  
+      //Write default settings to EEPROM 
+      EEPROM.write(EEPROM_isConfigured,g_switchIsConfigured);
+      EEPROM.write(EEPROM_modeNumber,g_switchMode);
+      EEPROM.write(EEPROM_reactionLevel,g_switchReactionLevel);
+      EEPROM.commit();
+      delay(5);
+    } 
 
     //Calculate switch delay based on g_switchReactionLevel
     g_switchReactionTime = ((11-g_switchReactionLevel)*SWITCH_REACTION_TIME);
@@ -384,6 +405,22 @@ void keyboardAction(bool macMode,int switchA,int switchB) {
     } else if(!switchB) {
       //Windows,Android: b, Mac: F2
       (macMode) ? bleKeyboard.write(switchProperty[1].switchMacChar) : bleKeyboard.write(switchProperty[1].switchChar);
+    } else
+    {
+      bleKeyboard.releaseAll();
+    }
+    delay(5);
+
+}
+
+//***MEDIA CONTROL SWITCH KEYBOARD FUNCTION***//
+void mediaAction(int switchA,int switchB) {
+    if(!switchA) {
+      //Play/Pause
+      bleKeyboard.write(switchProperty[0].switchMediaChar);
+    } else if(!switchB) {
+      //Next
+      bleKeyboard.write(switchProperty[1].switchMediaChar);
     } else
     {
       bleKeyboard.releaseAll();
@@ -514,16 +551,18 @@ void changeSwitchMode(){
 void settingsAction(int switchA,int switchB) {
   if(switchA==LOW) {
     decreaseReactionLevel();
+    showMode();
   }
   if(switchB==LOW) {
     increaseReactionLevel();
+    showMode();
   }
 }
 
 //***INCREASE SWITCH REACTION LEVEL FUNCTION***//
 void increaseReactionLevel(void) {
   g_switchReactionLevel++;
-  if (g_switchReactionLevel == 11) {
+  if (g_switchReactionLevel >= 11) {
     g_switchReactionLevel = 10;
   } else {
     g_switchReactionTime = ((11-g_switchReactionLevel)*SWITCH_REACTION_TIME);
@@ -544,7 +583,7 @@ void increaseReactionLevel(void) {
 //***DECREASE SWITCH REACTION LEVEL FUNCTION***//
 void decreaseReactionLevel(void) {
   g_switchReactionLevel--;
-  if (g_switchReactionLevel == 0) {
+  if (g_switchReactionLevel <= 0) {
     g_switchReactionLevel = 1; 
   } else {
     g_switchReactionTime = ((11-g_switchReactionLevel)*SWITCH_REACTION_TIME);
