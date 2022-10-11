@@ -10,7 +10,7 @@ The Adaptive Switch Interface includes 4 operating modes:
     1. Switch Mode
     2. Switch Mac Mode  
     3. Morse Keyboard Mode
-    4. Media Control 
+    4. Media Control Mode
     5. Settings Mode
 	
 The mode can be changed by pressing and holding Switch A for 4 seconds or pressing M5 button.
