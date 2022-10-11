@@ -9,10 +9,11 @@ The Adaptive Switch Interface includes 4 operating modes:
 
     1. Switch Mode
     2. Switch Mac Mode  
-    3. Morse Keyboard Mode 
-    4. Settings Mode
+    3. Morse Keyboard Mode
+    4. Media Control 
+    5. Settings Mode
 	
-The mode can be changed by pressing and holding Switch B for 4 seconds or pressing M5 button.
+The mode can be changed by pressing and holding Switch A for 4 seconds or pressing M5 button.
 
 <p align="center">
 <img align="center" src="./Resources/Images/Qwiic_BLE_Switch_Interface.png" width="50%" height="50%" alt="Setup Diagram"/>
